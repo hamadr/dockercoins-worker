@@ -14,7 +14,7 @@ else:
     logging.getLogger("requests").setLevel(logging.WARNING)
 
 
-redis = Redis("redis")
+redis = Redis(os.environ['REDIS_ADDR'])
 
 
 def get_random_bytes():
@@ -23,7 +23,7 @@ def get_random_bytes():
 
 
 def hash_bytes(data):
-    r = requests.post(os.environ['HASHER'],
+    r = requests.post(os.environ['HASHER_ADDR'],
                       data=data,
                       headers={"Content-Type": "application/octet-stream"})
     hex_hash = r.text
